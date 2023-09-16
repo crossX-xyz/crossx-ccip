@@ -1,5 +1,5 @@
 import React from 'react';
-import { dummyAPI } from '@/dummyAPI';
+// import { dummyAPI } from '@/dummyAPI';
 import WriteItem from './WriteItem';
 
 const WriteAll = ({abi}) => {

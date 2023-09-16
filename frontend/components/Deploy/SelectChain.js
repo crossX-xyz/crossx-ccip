@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GiBreakingChain } from "react-icons/gi";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import polygonSvg from "../../public/assets/deploy/polygon.svg";

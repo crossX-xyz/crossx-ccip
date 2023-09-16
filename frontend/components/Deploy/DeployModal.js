@@ -157,7 +157,7 @@ const DeployModal = ({
                 }}
                 className="py-3 px-7 rounded-md bg-[#1F423A] hover:bg-[#1a3831] text-green-300 border border-gray-600 mt-4 w-full"
               >
-                View on Axelar Explorer
+                View on Explorer
               </button>
             )}
           </div>

@@ -1,5 +1,6 @@
 import ChainModal from '@/components/Deploy/ChainModal';
 import ContractDetails from '@/components/Deploy/ContractDetails';
+import ContractInfo from '@/components/Deploy/ContractInfo';
 import DeployContract from '@/components/Deploy/DeployContract';
 import Introduction from '@/components/Deploy/Introduction';
 import MultiChain from '@/components/Deploy/MultiChain';
@@ -28,7 +29,7 @@ const index = () => {
       );
     } else if (page === 1) {
       return (
-        <ContractDetails
+        <ContractInfo
           setPage={setPage}
           page={page}
           formData={formData}
@@ -61,9 +62,11 @@ const index = () => {
           formData={formData}
           setFormData={setFormData}
         />
-      );z
+      );
     }
   };
+
+  console.log('Page', page);
 
   return (
     <div className='bg-[#171717] min-h-screen flex items-center justify-center py-32'>
