@@ -4,6 +4,7 @@ import { AiFillCopy, AiOutlineDeploymentUnit } from "react-icons/ai";
 import Loader from "../Loader/Loader";
 import { useContract, useContractWrite } from "wagmi";
 import { readContract, writeContract } from "@wagmi/core";
+import { createContractSimilar } from "@/polybase/queries";
 
 import { ethers } from "ethers";
 import Confetti from "react-confetti";
@@ -26,6 +27,7 @@ const Backdrop = ({ onClose }) => {
     ></div>
   );
 };
+
 
 const DeployModal = ({
   onClose,
@@ -51,6 +53,31 @@ const DeployModal = ({
 
   const { height, width } = useWindowDimensions();
   const router = useRouter();
+
+    const addToPolybase = async () => {
+      const contractId = computedAddress;
+
+      let chains = [];
+
+      const chainNames = [...formData.multichains, formData.currentDeployChain];
+      for (let chain of chainNames) {
+        chains.push(chain.chainName);
+      }
+
+      const data = await createContractSimilar(
+        contractId,
+        formData?.contractName,
+        formData?.contractDescription,
+        "0xEDbFce814BB0e816e2A18545262D8A32E32EDA43",
+        formData?.contractPasted,
+        JSON.stringify(abi),
+        chains
+      );
+
+      console.log("polybase", data);
+
+    };
+
   const computeAddress = async () => {
     try {
       if (salt === "") {
@@ -124,6 +151,7 @@ const DeployModal = ({
         });
         console.log(hash, "tx");
 
+        await addToPolybase();
         // await waitForTransaction(data);
         setTxhash(hash);
         setDeploymentSuccess(true);
