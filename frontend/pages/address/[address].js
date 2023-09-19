@@ -82,11 +82,11 @@ const Address = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data: signer } = useWalletClient();
-  const contract = getContract({
-    address: optimisticVerificationContract,
-    abi: optimisticVerificationABI,
-    signerOrProvider: signer,
-  });
+  // const contract = getContract({
+  //   address: optimisticVerificationContract,
+  //   abi: optimisticVerificationABI,
+  //   walletClient: signer,
+  // });
   const [isSettled, setIsSettled] = useState(null);
   const [differentAddress, setDifferentAddress] = useState(false);
 
