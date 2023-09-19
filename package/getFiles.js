@@ -1,4 +1,5 @@
-const fs = require("fs");
+// const fs = require("fs");
+import fs from "fs";
 
 // Recursive function to get files
 function getFiles(dir, files) {
@@ -19,4 +20,5 @@ function getFiles(dir, files) {
   return files;
 }
 
-module.exports = getFiles;
+// module.exports = getFiles;
+export default getFiles;

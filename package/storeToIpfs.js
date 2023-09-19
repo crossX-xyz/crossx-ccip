@@ -1,4 +1,5 @@
-const { Web3Storage, File } = require("web3.storage");
+// const { Web3Storage, File } = require("web3.storage");
+import { Web3Storage, File } from "web3.storage";
 
 const storeToIpfs = async (contract, jsonFile) => {
   const client = new Web3Storage({
@@ -24,4 +25,5 @@ const storeToIpfs = async (contract, jsonFile) => {
   return rootCid;
 };
 
-module.exports = storeToIpfs;
+// module.exports = storeToIpfs;
+export default storeToIpfs;

@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "multichain deployment tool",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,7 +25,9 @@
   "homepage": "https://github.com/VaibhavArora19/crossx-cli/package",
   "dependencies": {
     "child_process": "^1.0.2",
+    "cli-spinners": "^2.9.1",
     "inquirer": "^9.2.10",
+    "ora": "^7.0.1",
     "solc": "^0.8.18",
     "web3.storage": "^4.5.5"
   },
