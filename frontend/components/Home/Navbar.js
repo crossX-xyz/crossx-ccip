@@ -29,13 +29,6 @@ const Navbar = ({ bgColor, isLanding = false }) => {
           >
             Deploy
           </Link>
-
-          <Link
-            className="hover:scale-105"
-            href="/addContract"
-          >
-            Add Contract
-          </Link>
           <Link
             className="hover:scale-105"
             href="/explorer"
