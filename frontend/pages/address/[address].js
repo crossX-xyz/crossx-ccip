@@ -22,45 +22,6 @@ import Multichains from '@/components/Address/Multichains';
 import { BsInfo, BsInfoCircle } from 'react-icons/bs';
 import { getContract } from 'wagmi/actions';
 
-const CONTRACT_DATA = [
-  {
-    title: 'Name',
-    value: 'Pool Contract',
-  },
-  {
-    title: 'Description',
-    value:
-      'A random description for pool for testing to check if every component is working fine or not! Hello hey hola comoestas ',
-  },
-  {
-    title: 'Owner',
-    value: '0x51EEBc7765b246a4D16d02b28CEAC61299AB7d9d',
-  },
-  {
-    title: 'Current Chain',
-    value: 'Gnosis',
-  },
-  {
-    title: 'Balance',
-    value: '$102.34',
-  },
-];
-
-const OTHER_CHAINS = [
-  {
-    title: 'Polygon',
-    value: '0xE78419ae90e7CE4D9884b5001A4DE0491A32ad09',
-  },
-  {
-    title: 'Optimism',
-    value: '0x12e56bCD9Fb726574BAdA826594bfdFeBD9f4304',
-  },
-  {
-    title: 'Mantle',
-    value: '0xf2E01c4761EfeD1BD61F5e2933220D6eD07a2682',
-  },
-];
-
 const Address = () => {
   const router = useRouter();
   const { address } = router.query;

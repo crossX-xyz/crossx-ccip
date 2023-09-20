@@ -62,7 +62,7 @@ const DeployContract = ({ setPage, page, formData, setFormData, addData }) => {
     const argTypes = document.getElementById("argTypes").value;
     const argValues = document.getElementById("argValues").value;
     let ABI = ["function initialize(" + argTypes + ")"];
-    let iface = new ethers.Interface(ABI);
+    let iface = new ethers.utils.Interface(ABI);
     const bytecode = iface.encodeFunctionData(
       "initialize",
       argValues.split(",").map((arg) => arg.trim())
