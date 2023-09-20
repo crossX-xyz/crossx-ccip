@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BsArrowDownShort, BsArrowRightShort } from 'react-icons/bs';
-import { useContractWrite, usePrepareContractWrite, useSigner} from 'wagmi'
+import { useContractWrite, usePrepareContractWrite} from 'wagmi'
 import { useRouter } from 'next/router';
 import WriteInput from './WriteInput';
 import { ethers } from 'ethers';
@@ -9,7 +9,6 @@ const WriteItem = ({ functionName, i, inputs, abi }) => {
   const [showWriteData, setShowWriteDate] = useState(false);
   const [inputArray, setInputArray] = useState([]);
   const router = useRouter();
-  const {data: signer} = useSigner();
   const {address} = router.query;
 
   const { config } = usePrepareContractWrite({
