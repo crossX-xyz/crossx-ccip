@@ -96,6 +96,7 @@ const Address = () => {
     try {
       //get the data of the current address first
       const contractRecord = await readContractSimilar(address);
+      console.log('record', contractRecord);
 
       const check = new RegExp(router.query.chain, 'gi');
       const data = [
@@ -132,7 +133,6 @@ const Address = () => {
 
         alternate.push(obj);
       }
-
       setContractData(data);
       setAlternateContract(alternate);
       setContractInformation(contractRecord);
@@ -211,7 +211,6 @@ const Address = () => {
     if (address) {
       (async function () {
         setIsLoading(false);
-
         await getData();
       })();
     }

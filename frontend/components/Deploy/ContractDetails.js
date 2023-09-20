@@ -15,6 +15,7 @@ const ContractDetails = ({ setPage, formData, setFormData }) => {
       const data = await res.json();
       setFormData({
         ...formData,
+        contractPasted: data?.contract,
         bytecode: data.bytecode,
         abi: data.abi,
       });
