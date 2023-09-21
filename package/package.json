@@ -1,6 +1,6 @@
 {
-  "name": "crossx-cli",
-  "version": "0.1.1",
+  "name": "crossx",
+  "version": "0.1.6",
   "description": "multichain deployment tool",
   "main": "app.js",
   "type": "module",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VaibhavArora19/crossx-cli/package"
+    "url": "git+https://github.com/crossX-xyz/crossx-ccip/tree/main/package"
   },
   "bin": "./app.js",
   "keywords": [
@@ -20,9 +20,9 @@
   "author": "crossx_team",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VaibhavArora19/crossx-cli/package"
+    "url": "https://github.com/crossX-xyz/crossx-ccip/tree/main/package"
   },
-  "homepage": "https://github.com/VaibhavArora19/crossx-cli/package",
+  "homepage": "https://github.com/crossX-xyz/crossx-ccip/tree/main/package",
   "dependencies": {
     "child_process": "^1.0.2",
     "cli-spinners": "^2.9.1",
