@@ -27,6 +27,7 @@ const DeployContract = ({ setPage, page, formData, setFormData, addData }) => {
   const compileHandler = async () => {
     try {
       const sourceCode = formData.contractPasted;
+      console.log(sourceCode);
       const response = await fetch("./api/compile", {
         method: "POST",
         headers: {
