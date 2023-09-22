@@ -1,22 +1,65 @@
-export const contractAddress = "0xfE72897d882c3b3d3396012684bED9D7a2e60648";
-export const axelarDomains = {
-  "Optimism Goerli": "optimism",
-  "Polygon Mumbai": "Polygon",
-  "Avalanche": "avalanche",
-  "Arbitrum": "arbitrum",
-  "BSC Testnet": "binance",
-  "FVM Hyperspace": "filecoin",
+export const contractAddress = "0x1b333d7342A389D14d23E4750d253955e586AE9a";
+export const ccipSelectors = {
+  "Optimism Goerli": "2664363617261496610",
+  "Polygon Mumbai": "12532609583862916517",
+  "Avalanche Fuji": "14767482510784806043",
+  "Arbitrum Goerli": "6101244977088475029",
+  "BSC Testnet": "13264668187771770619",
+  "Base Goerli": "5790810961207155433",
 };
 
 export const deployerAbi = [
   {
-    inputs: [],
-    name: "InvalidAddress",
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "FailedToWithdrawEth",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "router",
+        type: "address",
+      },
+    ],
+    name: "InvalidRouter",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "currentBalance",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "calculatedFees",
+        type: "uint256",
+      },
+    ],
+    name: "NotEnoughBalance",
     type: "error",
   },
   {
     inputs: [],
-    name: "NotApprovedByGateway",
+    name: "NothingToWithdraw",
     type: "error",
   },
   {
@@ -31,6 +74,131 @@ export const deployerAbi = [
     ],
     name: "Initialized",
     type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferRequested",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint64[]",
+        name: "destinationChainSelector",
+        type: "uint64[]",
+      },
+      {
+        internalType: "bytes32",
+        name: "salt",
+        type: "bytes32",
+      },
+      {
+        internalType: "bytes",
+        name: "bytecode",
+        type: "bytes",
+      },
+      {
+        internalType: "bytes",
+        name: "initializeData",
+        type: "bytes",
+      },
+    ],
+    name: "DeployOnMultiChains",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "acceptOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "bytes32",
+            name: "messageId",
+            type: "bytes32",
+          },
+          {
+            internalType: "uint64",
+            name: "sourceChainSelector",
+            type: "uint64",
+          },
+          {
+            internalType: "bytes",
+            name: "sender",
+            type: "bytes",
+          },
+          {
+            internalType: "bytes",
+            name: "data",
+            type: "bytes",
+          },
+          {
+            components: [
+              {
+                internalType: "address",
+                name: "token",
+                type: "address",
+              },
+              {
+                internalType: "uint256",
+                name: "amount",
+                type: "uint256",
+              },
+            ],
+            internalType: "struct Client.EVMTokenAmount[]",
+            name: "destTokenAmounts",
+            type: "tuple[]",
+          },
+        ],
+        internalType: "struct Client.Any2EVMMessage",
+        name: "message",
+        type: "tuple",
+      },
+    ],
+    name: "ccipReceive",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
     inputs: [
@@ -93,11 +261,6 @@ export const deployerAbi = [
         type: "bytes",
       },
       {
-        internalType: "bool",
-        name: "initializable",
-        type: "bool",
-      },
-      {
         internalType: "bytes",
         name: "initializeData",
         type: "bytes",
@@ -117,124 +280,9 @@ export const deployerAbi = [
   {
     inputs: [
       {
-        internalType: "bytes32",
-        name: "commandId",
-        type: "bytes32",
-      },
-      {
-        internalType: "string",
-        name: "sourceChain",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "sourceAddress",
-        type: "string",
-      },
-      {
-        internalType: "bytes",
-        name: "payload",
-        type: "bytes",
-      },
-    ],
-    name: "execute",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "commandId",
-        type: "bytes32",
-      },
-      {
-        internalType: "string",
-        name: "sourceChain",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "sourceAddress",
-        type: "string",
-      },
-      {
-        internalType: "bytes",
-        name: "payload",
-        type: "bytes",
-      },
-      {
-        internalType: "string",
-        name: "tokenSymbol",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "executeWithToken",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "gasService",
-    outputs: [
-      {
-        internalType: "contract IAxelarGasService",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "gateway",
-    outputs: [
-      {
-        internalType: "contract IAxelarGateway",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "gateway_",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "gasReceiver_",
-        type: "address",
-      },
-    ],
-    name: "initialize",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "destinationAddress",
-        type: "string",
-      },
-      {
-        internalType: "string[]",
-        name: "destinationDomain",
-        type: "string[]",
+        internalType: "uint64[]",
+        name: "destinationChainSelector",
+        type: "uint64[]",
       },
       {
         internalType: "bytes32",
@@ -247,29 +295,148 @@ export const deployerAbi = [
         type: "bytes",
       },
       {
-        internalType: "uint256[]",
-        name: "relayerFee",
-        type: "uint256[]",
-      },
-      {
-        internalType: "bool",
-        name: "initializable",
-        type: "bool",
-      },
-      {
         internalType: "bytes",
         name: "initializeData",
         type: "bytes",
       },
+    ],
+    name: "getInfo",
+    outputs: [
       {
         internalType: "uint256",
         name: "totalFee",
         type: "uint256",
       },
+      {
+        components: [
+          {
+            internalType: "bytes",
+            name: "receiver",
+            type: "bytes",
+          },
+          {
+            internalType: "bytes",
+            name: "data",
+            type: "bytes",
+          },
+          {
+            components: [
+              {
+                internalType: "address",
+                name: "token",
+                type: "address",
+              },
+              {
+                internalType: "uint256",
+                name: "amount",
+                type: "uint256",
+              },
+            ],
+            internalType: "struct Client.EVMTokenAmount[]",
+            name: "tokenAmounts",
+            type: "tuple[]",
+          },
+          {
+            internalType: "address",
+            name: "feeToken",
+            type: "address",
+          },
+          {
+            internalType: "bytes",
+            name: "extraArgs",
+            type: "bytes",
+          },
+        ],
+        internalType: "struct Client.EVM2AnyMessage",
+        name: "evm2AnyMessage",
+        type: "tuple",
+      },
     ],
-    name: "xDeployer",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getRouter",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_router",
+        type: "address",
+      },
+    ],
+    name: "initialize",
     outputs: [],
-    stateMutability: "payable",
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes4",
+        name: "interfaceId",
+        type: "bytes4",
+      },
+    ],
+    name: "supportsInterface",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_beneficiary",
+        type: "address",
+      },
+    ],
+    name: "withdraw",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {

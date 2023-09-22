@@ -14,6 +14,7 @@ import {
   avalancheFuji,
   bscTestnet,
   arbitrumGoerli,
+  baseGoerli,
 } from "wagmi/chains";
 
 const SelectChain = ({ setPage, page, formData, setFormData }) => {
@@ -53,6 +54,9 @@ const SelectChain = ({ setPage, page, formData, setFormData }) => {
       if (chain.chainName === "Arbitrum Goerli") {
         setDefaultChain(arbitrumGoerli);
       }
+      if (chain.chainName === "Base Goerli") {
+        setDefaultChain(baseGoerli);
+      }
       await open();
     } catch (err) {
       console.log(err, "wallet  connected");
@@ -70,6 +74,8 @@ const SelectChain = ({ setPage, page, formData, setFormData }) => {
       return optimismGoerli;
     } else if (chain.chainName === "Arbitrum Goerli") {
       return arbitrumGoerli;
+    } else if (chain.chainName === "Base Goerli") {
+      return baseGoerli;
     }
   };
 

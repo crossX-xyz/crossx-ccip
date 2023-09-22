@@ -14,7 +14,7 @@ import { waitForTransaction } from "@wagmi/core";
 import {
   deployerAbi,
   contractAddress,
-  axelarDomains,
+  ccipSelectors,
   rpcUrls,
 } from "@/constants";
 import { useRouter } from "next/router";
@@ -27,7 +27,6 @@ const Backdrop = ({ onClose }) => {
     ></div>
   );
 };
-
 
 const DeployModal = ({
   onClose,
@@ -54,29 +53,28 @@ const DeployModal = ({
   const { height, width } = useWindowDimensions();
   const router = useRouter();
 
-    const addToPolybase = async () => {
-      const contractId = computedAddress;
+  const addToPolybase = async () => {
+    const contractId = computedAddress;
 
-      let chains = [];
+    let chains = [];
 
-      const chainNames = [...formData.multichains, formData.currentDeployChain];
-      for (let chain of chainNames) {
-        chains.push(chain.chainName);
-      }
+    const chainNames = [...formData.multichains, formData.currentDeployChain];
+    for (let chain of chainNames) {
+      chains.push(chain.chainName);
+    }
 
-      const data = await createContractSimilar(
-        contractId,
-        formData?.contractName,
-        formData?.contractDescription,
-        "0xEDbFce814BB0e816e2A18545262D8A32E32EDA43",
-        formData?.contractPasted,
-        JSON.stringify(abi),
-        chains
-      );
+    const data = await createContractSimilar(
+      contractId,
+      formData?.contractName,
+      formData?.contractDescription,
+      "0xEDbFce814BB0e816e2A18545262D8A32E32EDA43",
+      formData?.contractPasted,
+      JSON.stringify(abi),
+      chains
+    );
 
-      console.log("polybase", data);
-
-    };
+    console.log("polybase", data);
+  };
 
   const computeAddress = async () => {
     try {
@@ -121,41 +119,47 @@ const DeployModal = ({
       const abiCoder = new ethers.utils.AbiCoder();
       const saltbytes = abiCoder.encode(["uint256"], [salt]);
       let domains = [];
-      let fees = [];
-
-      let tx;
       console.log(formData, "multichains");
       if (formData.multichains.length > 0) {
-        let totalFee = ethers.utils.parseEther("0");
         for (let i = 0; i < formData.multichains.length; i++) {
-          domains.push(axelarDomains[formData.multichains[i].chainName]);
-          fees.push(ethers.utils.parseEther("0.01"));
-          totalFee = totalFee.add(fees[i]);
+          domains.push(ccipSelectors[formData.multichains[i].chainName]);
         }
+        console.log(domains, saltbytes, bytecode);
+
+        const totalFee = await readContract({
+          address: contractAddress,
+          abi: deployerAbi,
+          functionName: "getInfo",
+          args: [domains, saltbytes, bytecode, "0x"],
+        });
+        console.log(totalFee);
 
         const { hash } = await writeContract({
           address: contractAddress,
           abi: deployerAbi,
-          functionName: "xDeployer",
-          args: [
-            contractAddress,
-            domains,
-            saltbytes,
-            bytecode,
-            fees,
-            false,
-            "0x",
-            totalFee,
-          ],
-          value: totalFee,
+          functionName: "DeployOnMultiChains",
+          args: [["6101244977088475029"], saltbytes, bytecode, "0x"],
+          value: totalFee[0],
+        });
+        console.log(hash, "tx");
+        await waitForTransaction({ hash });
+
+        setTxhash(hash);
+      } else {
+        const { hash } = await writeContract({
+          address: contractAddress,
+          abi: deployerAbi,
+          functionName: "deployContract",
+          args: [saltbytes, bytecode, "0x"],
         });
         console.log(hash, "tx");
 
-        await addToPolybase();
-        // await waitForTransaction(data);
+        await waitForTransaction({ hash: hash });
         setTxhash(hash);
-        setDeploymentSuccess(true);
       }
+      await addToPolybase();
+
+      setDeploymentSuccess(true);
     } catch (err) {
       console.log(err, "DeployContract");
       setStartDeploying(false);
@@ -179,7 +183,7 @@ const DeployModal = ({
               <button
                 onClick={() => {
                   window.open(
-                    `https://testnet.axelarscan.io/gmp/${txhash}`,
+                    `https://ccip.chain.link/msg/${txhash}`,
                     "_blank"
                   );
                 }}
