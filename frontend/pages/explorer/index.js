@@ -61,7 +61,7 @@ const Explorer = () => {
           </h2>
         </div>
         <h2 className="text-8xl text-white font-Poppins font-medium">
-          on ExplorerX
+          on CrossX
         </h2>
       </div>
       <Image

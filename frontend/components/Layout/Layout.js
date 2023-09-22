@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   const router = useRouter();
 
   return (
-    <div>
+    <div className='font-Poppins'>
       {router.pathname === '/addContract' && (
         <Navbar bgColor={'bg-[#111111]'} />
       )}

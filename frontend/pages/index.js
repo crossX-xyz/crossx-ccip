@@ -9,10 +9,10 @@ const LandingPage = () => {
   return (
     <>
       <Head>
-        <title>ExplorerX</title>
+        <title>CrossX</title>
         <meta
           name='description'
-          content='A blockchain explorer cum deployer'
+          content='A crosschain deployer and explorer for the next generation of blockchain developers.'
         />
         <meta
           name='viewport'
