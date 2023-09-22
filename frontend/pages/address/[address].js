@@ -39,27 +39,41 @@ const Address = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data: signer } = useWalletClient();
- 
+
   const [isSettled, setIsSettled] = useState(null);
   const [differentAddress, setDifferentAddress] = useState(false);
 
   const { chain } = router.query;
 
+  const extractContractName = (contractString) => {
+    const regex = /contract (\w+) {/;
+    const match = contractString.match(regex);
+    if (match && match[1]) {
+      return match[1];
+    } else {
+      return null; // or throw an error, depending on your preference
+    }
+  };
+
   const getData = async () => {
     try {
       //get the data of the current address first
       const contractRecord = await readContractSimilar(address);
-      console.log('record', contractRecord);
+      console.log('record', contractRecord.data.contractCode);
 
       const check = new RegExp(router.query.chain, 'gi');
       const data = [
         {
           title: 'Name',
-          value: contractRecord?.data?.name,
+          value: contractRecord?.data?.name
+            ? contractRecord?.data?.name
+            : extractContractName(contractRecord?.data?.contractCode),
         },
         {
           title: 'Description',
-          value: contractRecord?.data?.description,
+          value: contractRecord?.data?.description
+            ? contractRecord?.data?.description
+            : 'No description',
         },
         {
           title: 'Owner',
@@ -71,7 +85,7 @@ const Address = () => {
         },
         {
           title: 'Balance',
-          value: '$102.34',
+          value: '$0',
         },
       ];
       const alternate = [];
