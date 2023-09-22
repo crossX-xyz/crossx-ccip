@@ -14,10 +14,6 @@ import {
 import Loader from '@/components/Loader/Loader';
 import TransactionAll from '@/components/Transaction/TransactionAll';
 import { useWalletClient } from 'wagmi';
-import {
-  optimisticVerificationContract,
-  optimisticVerificationABI,
-} from '@/constants';
 import Multichains from '@/components/Address/Multichains';
 import { BsInfo, BsInfoCircle } from 'react-icons/bs';
 import { getContract } from 'wagmi/actions';
@@ -43,11 +39,7 @@ const Address = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data: signer } = useWalletClient();
-  // const contract = getContract({
-  //   address: optimisticVerificationContract,
-  //   abi: optimisticVerificationABI,
-  //   walletClient: signer,
-  // });
+ 
   const [isSettled, setIsSettled] = useState(null);
   const [differentAddress, setDifferentAddress] = useState(false);
 
