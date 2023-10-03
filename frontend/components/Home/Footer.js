@@ -6,7 +6,7 @@ const Footer = () => {
   const router = useRouter();
   return (
     <div className='w-full text-white px-20 mt-[150px]'>
-      <h2 className='text-3xl font-semibold mb-10'>ExplorerX.</h2>
+      <h2 className='text-3xl font-semibold mb-10'>CrossX.</h2>
       <p className='text-gray-400 mb-12'>
         CrossX is currrently built for Open Data Hackathon and should be used at
         your own risk. We take security seriously and our contracts have been

@@ -51,7 +51,7 @@ const LandingPage = () => {
               </p>
 
               <p className='text-lg text-gray-400 font-Poppins text-center mt-10 w-[600px] mx-auto'>
-                Empowering the builders of tomorrow with ExplorerX's multi-chain
+                Empowering the builders of tomorrow with CrossX's multi-chain
                 smart contract management platform
               </p>
 

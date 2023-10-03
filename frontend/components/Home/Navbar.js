@@ -13,7 +13,7 @@ const Navbar = ({ bgColor, isLanding = false }) => {
             router.push('/');
           }}
           className='text-3xl font-semibold font-Lora text-white cursor-pointer'>
-          EX.
+          CX.
         </h2>
         <div className='flex items-center gap-20 text-white'>
           <Link
